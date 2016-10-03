@@ -13,15 +13,16 @@ function* listContacts() {
 }
 
 function* createContact(action) {
-  console.log('Creating contact...')
-  // try {
-  //   const response = yield call(api.post, endpoints.contacts(), {
-  //     body: action.payload
-  //   })
-  //   yield put(actions.create.success(response.body, response))
-  // } catch (e) {
-  //   yield put(actions.create.failure(e, response))
-  // }
+  console.log('Creating contact...', action)
+  try {
+    const response = yield call(api.post, endpoints.contacts(), {
+      body: action.payload
+    })
+    console.log('Contact created: ', response)
+    yield put(actions.create.success(response.body, response))
+  } catch (e) {
+    yield put(actions.create.failure(e, response))
+  }
 }
 
 function* watchCreateContactRequest(action) {

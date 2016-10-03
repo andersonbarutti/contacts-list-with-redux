@@ -1,7 +1,7 @@
 import React from 'react'
-import classes from './Contacts.scss'
+import { Field } from 'redux-form'
 
-import ContactForm from './ContactForm'
+import classes from './Contacts.scss'
 
 const Contact = ({ picture, name, email, phone }) => (
   <li>
@@ -26,14 +26,65 @@ const Contact = ({ picture, name, email, phone }) => (
   </li>
 )
 
-export const Contacts = ({ contacts, create }) => (
-  <div className={classes['Contacts']}>
-    <h4>Contacts</h4>
-    <ContactForm submit={create} />
-    <ul>
-      {contacts.map((contact, i) => <Contact {...contact} key={i} />)}
-    </ul>
-  </div>
-)
+export const Contacts = (props) => {
+  console.log(props)
+  const {
+    contacts,
+    create,
+    handleSubmit,
+    submitting
+  } = props
+
+  return (
+    <div className={classes['Contacts']}>
+
+      <h4>Create a contact</h4>
+
+      <div className="contact-form">
+        <form onSubmit={handleSubmit(create)}>
+          <div className="form-group">
+            <label>Name:</label>
+            <Field
+              name="name"
+              component="input"
+              className="form-control"
+              required />
+          </div>
+
+          <div className="form-group">
+            <label>Email:</label>
+            <Field
+              name="email"
+              component="input"
+              className="form-control" />
+          </div>
+
+          <div className="form-group">
+            <label>Phone:</label>
+            <Field
+              name="phone"
+              component="input"
+              className="form-control" />
+          </div>
+
+          {/* input/upload picture */}
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={submitting}>
+            Add
+          </button>
+        </form>
+      </div>
+
+      <h4>Contacts</h4>
+
+      <ul>
+        {contacts.map((contact, i) => <Contact {...contact} key={i} />)}
+      </ul>
+    </div>
+  )
+}
 
 export default Contacts

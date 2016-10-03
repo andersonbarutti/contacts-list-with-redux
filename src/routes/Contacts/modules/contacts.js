@@ -28,7 +28,12 @@ const ACTION_HANDLERS = {
   [CONTACTS.LIST.REQUEST]: (state, { ...props }) =>
     Object.assign({}, state, { ...props }),
   [CONTACTS.LIST.SUCCESS]: (state, { payload: list, ...props }) =>
-    Object.assign({}, state, { list, ...props })
+    Object.assign({}, state, { list, ...props }),
+  [CONTACTS.CREATE.SUCCESS]: (state, { payload, ...props }) =>
+    Object.assign({}, state, {
+      list: [...state.list, payload],
+      ...props
+    })
 }
 
 // ------------------------------------

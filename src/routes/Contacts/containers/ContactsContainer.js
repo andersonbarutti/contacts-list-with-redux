@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import { actions } from '../modules/contacts'
+import { reduxForm } from 'redux-form'
 
 import Contacts from '../components/Contacts'
 
@@ -11,4 +12,10 @@ const mapStateToProps = (state) => ({
   contacts: state.contacts.list
 })
 
-export default connect(mapStateToProps, mapActionCreators)(Contacts)
+const ContactsForm = reduxForm({ form: 'contact' })(Contacts)
+
+export default connect(
+  // { form: 'contact'},
+  mapStateToProps,
+  mapActionCreators
+)(ContactsForm)
