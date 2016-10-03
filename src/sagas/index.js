@@ -1,5 +1,6 @@
 import { takeEvery } from 'redux-saga'
 import { call, put, fork } from 'redux-saga/effects'
+import { reset } from 'redux-form'
 import { api, endpoints } from 'services/api'
 import { CONTACTS, actions } from 'routes/Contacts/modules/contacts'
 
@@ -13,12 +14,12 @@ function* listContacts() {
 }
 
 function* createContact(action) {
-  console.log('Creating contact...', action)
   try {
     const response = yield call(api.post, endpoints.contacts(), {
       body: action.payload
     })
-    console.log('Contact created: ', response)
+
+    yield put(reset('contact'))
     yield put(actions.create.success(response.body, response))
   } catch (e) {
     yield put(actions.create.failure(e, response))

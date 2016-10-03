@@ -1,10 +1,11 @@
 import React from 'react'
 import { Field } from 'redux-form'
+import Upload from './Upload'
 
-import classes from './Contacts.scss'
+import './Contacts.scss'
 
 const Contact = ({ picture, name, email, phone }) => (
-  <li>
+  <li className="contact">
     <div className="avatar">
       <img src={picture} alt=""/>
     </div>
@@ -26,18 +27,18 @@ const Contact = ({ picture, name, email, phone }) => (
   </li>
 )
 
+
 export const Contacts = (props) => {
-  console.log(props)
   const {
     contacts,
     create,
+    upload,
     handleSubmit,
     submitting
   } = props
 
   return (
-    <div className={classes['Contacts']}>
-
+    <div>
       <h4>Create a contact</h4>
 
       <div className="contact-form">
@@ -67,7 +68,10 @@ export const Contacts = (props) => {
               className="form-control" />
           </div>
 
-          {/* input/upload picture */}
+          <div className="form-group">
+            <label>Picture/Avatar:</label>
+            <Field name="picture" component={Upload} />
+          </div>
 
           <button
             type="submit"
@@ -80,7 +84,7 @@ export const Contacts = (props) => {
 
       <h4>Contacts</h4>
 
-      <ul>
+      <ul className="contacts">
         {contacts.map((contact, i) => <Contact {...contact} key={i} />)}
       </ul>
     </div>

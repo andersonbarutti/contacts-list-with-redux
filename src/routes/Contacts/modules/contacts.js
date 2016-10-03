@@ -1,6 +1,7 @@
 import {
   createRequestTypes,
-  createRequestActions
+  createRequestActions,
+  action
 } from 'actions/actionTypes'
 
 // ------------------------------------
@@ -18,7 +19,7 @@ export const CONTACTS = {
 
 export const actions = {
   list: createRequestActions(CONTACTS.LIST),
-  create: createRequestActions(CONTACTS.CREATE)
+  create: createRequestActions(CONTACTS.CREATE),
 }
 
 // ------------------------------------
@@ -27,8 +28,10 @@ export const actions = {
 const ACTION_HANDLERS = {
   [CONTACTS.LIST.REQUEST]: (state, { ...props }) =>
     Object.assign({}, state, { ...props }),
+
   [CONTACTS.LIST.SUCCESS]: (state, { payload: list, ...props }) =>
     Object.assign({}, state, { list, ...props }),
+
   [CONTACTS.CREATE.SUCCESS]: (state, { payload, ...props }) =>
     Object.assign({}, state, {
       list: [...state.list, payload],

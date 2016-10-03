@@ -14,8 +14,4 @@ const mapStateToProps = (state) => ({
 
 const ContactsForm = reduxForm({ form: 'contact' })(Contacts)
 
-export default connect(
-  // { form: 'contact'},
-  mapStateToProps,
-  mapActionCreators
-)(ContactsForm)
+export default connect(mapStateToProps, mapActionCreators)(ContactsForm)
