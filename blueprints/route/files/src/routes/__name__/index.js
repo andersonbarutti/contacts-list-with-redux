@@ -1,7 +1,7 @@
 import { injectReducer } from '../../store/reducers'
 
 export default (store) => ({
-  path : 'counter',
+  path: '<%= dashesEntityName %>',
   /*  Async getComponent is only invoked when route matches   */
   getComponent (nextState, cb) {
     /*  Webpack - use 'require.ensure' to create a split point
@@ -9,16 +9,16 @@ export default (store) => ({
     require.ensure([], (require) => {
       /*  Webpack - use require callback to define
           dependencies for bundling   */
-      const Counter = require('./containers/CounterContainer').default
-      const reducer = require('./modules/counter').default
+      const <%= pascalEntityName %> = require('./containers/<%= pascalEntityName %>Container').default
+      const reducer = require('./modules/<%= pascalEntityName %>').default
 
       /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'counter', reducer })
+      injectReducer(store, { key: '<%= pascalEntityName %>', reducer })
 
       /*  Return getComponent   */
-      cb(null, Counter)
+      cb(null, <%= pascalEntityName %>)
 
     /* Webpack named bundle   */
-    }, 'counter')
+    }, '<%= pascalEntityName %>')
   }
 })
